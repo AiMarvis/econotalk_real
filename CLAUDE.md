@@ -31,6 +31,19 @@ This project uses ClaudeOnRails with specialized agents for different Rails deve
 ### Code Quality Guidelines
 Follow clean code principles and maintain consistency across the codebase.
 
+### Automated Code Review Process
+When using `/sc:implement` command, an automated code review process is triggered:
+- **Post-Implementation Review**: After each `/sc:implement` completion, automatically analyze implemented code using Gemini CLI MCP
+- **Review Scope**: Analyze code quality, identify potential refactoring opportunities, and suggest improvements
+- **Review Language**: All review content must be written in Korean (한국어로 리뷰 내용 작성)
+- **Non-Intrusive**: Gemini CLI MCP is used for analysis only - no direct code modifications allowed
+- **Review Output**: Provide structured feedback including code quality assessment and refactoring recommendations
+
+**Important Notes:**
+- This automated review only triggers with `/sc:implement` command usage
+- Gemini CLI MCP serves as analysis tool only, not for code modification
+- Claude Code remains the primary implementation tool
+
 ## Project Documentation
 
 <vooster-docs>
