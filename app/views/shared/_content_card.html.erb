@@ -1,0 +1,129 @@
+<%# 
+  Content Card Component
+  Usage: render 'shared/content_card', content: your_content_object
+  Or with local variables: render 'shared/content_card', title: "Title", description: "Description", etc.
+%>
+
+<%
+  # Use passed variables or content object attributes
+  content_obj = local_assigns[:content]
+  title = local_assigns.fetch(:title, content_obj&.title || "Sample Title")
+  description = local_assigns.fetch(:description, content_obj&.description || "Sample description for the content card")
+  author = local_assigns.fetch(:author, content_obj&.author || "Author Name")
+  published_at = local_assigns.fetch(:published_at, content_obj&.created_at || Time.current)
+  thumbnail_url = local_assigns.fetch(:thumbnail_url, content_obj&.thumbnail_url || nil)
+  tags = local_assigns.fetch(:tags, content_obj&.tags || [])
+  content_type = local_assigns.fetch(:content_type, content_obj&.content_type || "article")
+  url = local_assigns.fetch(:url, content_obj.present? ? content_obj : "#")
+%>
+
+<article class="group relative rounded-lg border shadow-sm transition-all hover:shadow-md" style="border-color: #E2E8F0; background-color: #FFFFFF;">
+  <%= link_to url, class: "block" do %>
+    <!-- Thumbnail Section -->
+    <% if thumbnail_url.present? %>
+      <div class="aspect-video w-full overflow-hidden rounded-t-lg">
+        <img 
+          src="<%= thumbnail_url %>" 
+          alt="<%= title %>"
+          class="h-full w-full object-cover transition-transform group-hover:scale-105"
+          loading="lazy"
+        />
+      </div>
+    <% else %>
+      <div class="aspect-video w-full overflow-hidden rounded-t-lg flex items-center justify-center" style="background-color: #F5F7FA;">
+        <% case content_type %>
+        <% when "video" %>
+          <%= icon('player-play', class: 'h-12 w-12', style: 'color: #718096') %>
+        <% when "newsletter" %>
+          <%= icon('mail', class: 'h-12 w-12', style: 'color: #718096') %>
+        <% else %>
+          <%= icon('article', class: 'h-12 w-12', style: 'color: #718096') %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <!-- Content Section -->
+    <div class="p-6">
+      <!-- Tags -->
+      <% if tags.any? %>
+        <div class="flex flex-wrap gap-2 mb-3">
+          <% tags.first(3).each do |tag| %>
+            <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2" style="background-color: #1EC7A6; color: #FFFFFF; --tw-ring-color: #1EC7A6;">
+              <%= tag.is_a?(String) ? tag : tag.name %>
+            </span>
+          <% end %>
+          <% if tags.length > 3 %>
+            <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold" style="background-color: #F5F7FA; color: #718096;">
+              +<%= tags.length - 3 %>
+            </span>
+          <% end %>
+        </div>
+      <% end %>
+
+      <!-- Title -->
+      <h3 class="font-bold leading-none tracking-tight text-xl mb-2 line-clamp-2 group-hover:opacity-80 transition-opacity" style="color: #1A202C; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">
+        <%= title %>
+      </h3>
+
+      <!-- Description -->
+      <p class="text-sm mb-4 line-clamp-3" style="color: #718096; line-height: 1.7;">
+        <%= description %>
+      </p>
+
+      <!-- Meta Information -->
+      <div class="flex items-center justify-between text-sm" style="color: #718096;">
+        <div class="flex items-center space-x-2">
+          <div class="flex items-center space-x-1">
+            <%= icon('user', class: 'h-4 w-4') %>
+            <span><%= author %></span>
+          </div>
+          <span>•</span>
+          <div class="flex items-center space-x-1">
+            <%= icon('clock', class: 'h-4 w-4') %>
+            <time datetime="<%= published_at.iso8601 %>">
+              <%= time_ago_in_words(published_at) %> ago
+            </time>
+          </div>
+        </div>
+
+        <!-- Content Type Icon -->
+        <div class="flex items-center space-x-2 text-xs">
+          <% case content_type %>
+          <% when "video" %>
+            <%= icon('video', class: 'h-4 w-4') %>
+            <span>Video</span>
+          <% when "newsletter" %>
+            <%= icon('mail', class: 'h-4 w-4') %>
+            <span>Newsletter</span>
+          <% when "article" %>
+            <%= icon('article', class: 'h-4 w-4') %>
+            <span>Article</span>
+          <% else %>
+            <%= icon('file-text', class: 'h-4 w-4') %>
+            <span>Content</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Action Buttons -->
+  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+    <div class="flex space-x-1">
+      <!-- Bookmark Button -->
+      <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 w-8 shadow-sm" style="background-color: rgba(255,255,255,0.9); --tw-ring-color: #0052CC;">
+        <%= icon('bookmark', class: 'h-4 w-4', style: 'color: #718096') %>
+      </button>
+      
+      <!-- Like Button -->
+      <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 w-8 shadow-sm" style="background-color: rgba(255,255,255,0.9); --tw-ring-color: #0052CC;">
+        <%= icon('heart', class: 'h-4 w-4', style: 'color: #718096') %>
+      </button>
+      
+      <!-- Share Button -->
+      <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 w-8 shadow-sm" style="background-color: rgba(255,255,255,0.9); --tw-ring-color: #0052CC;">
+        <%= icon('share', class: 'h-4 w-4', style: 'color: #718096') %>
+      </button>
+    </div>
+  </div>
+</article>

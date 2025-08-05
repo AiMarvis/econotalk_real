@@ -1,0 +1,129 @@
+<% content_for :title, "EconoTalk - 경제 콘텐츠 커뮤니티" %>
+
+<!-- Hero Section -->
+<section class="text-center py-12 mb-12">
+  <h1 class="font-bold tracking-tight mb-6" style="color: #1A202C; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2;">
+    경제를 쉽게, 함께 배우세요
+  </h1>
+  <p class="text-lg leading-8 max-w-2xl mx-auto mb-10" style="color: #718096; line-height: 1.7;">
+    경제·투자 초보자를 위한 통합 콘텐츠 커뮤니티에서 
+    믿을 수 있는 정보를 찾고, 실시간으로 의견을 나누세요.
+  </p>
+  <div class="flex items-center justify-center gap-x-6">
+    <a href="#" class="rounded-md px-6 py-3 text-sm font-semibold shadow-sm transition-colors hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2" style="background-color: #0052CC; color: #FFFFFF; --tw-ring-color: #0052CC;">
+      시작하기
+    </a>
+    <a href="#" class="text-sm font-semibold leading-6 transition-colors hover:opacity-80" style="color: #718096;">
+      더 알아보기 <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- Featured Content Section -->
+<section class="mb-12">
+  <div class="flex items-center justify-between mb-8">
+    <h2 class="font-bold tracking-tight" style="color: #1A202C; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">추천 콘텐츠</h2>
+    <a href="#" class="text-sm font-medium transition-colors hover:opacity-80" style="color: #0052CC;">
+      전체보기 <%= icon('arrow-right', class: 'h-4 w-4 inline ml-1') %>
+    </a>
+  </div>
+  
+  <!-- Content Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Sample Content Cards -->
+    <%= render 'shared/content_card', 
+        title: "2025년 경제 전망과 투자 전략", 
+        description: "올해 경제 흐름을 파악하고 개인 투자자가 알아야 할 핵심 포인트들을 정리했습니다. 인플레이션, 금리 정책, 주식 시장 전망까지 한번에 확인하세요.", 
+        author: "김경제",
+        published_at: 2.days.ago,
+        tags: ["경제전망", "투자전략", "2025"],
+        content_type: "article" %>
+    
+    <%= render 'shared/content_card', 
+        title: "초보자를 위한 ETF 투자 가이드", 
+        description: "ETF가 무엇인지, 어떻게 선택하고 투자해야 하는지 쉽게 설명드립니다. 국내 ETF부터 해외 ETF까지 실전 투자 노하우를 공개합니다.", 
+        author: "이투자",
+        published_at: 1.week.ago,
+        tags: ["ETF", "초보투자", "투자가이드"],
+        content_type: "video" %>
+    
+    <%= render 'shared/content_card', 
+        title: "주간 경제 뉴스레터 #12", 
+        description: "이번 주 주요 경제 이슈와 시장 동향을 간단명료하게 정리했습니다. 바쁜 일상 속에서도 놓치지 말아야 할 경제 소식들을 확인하세요.", 
+        author: "박뉴스",
+        published_at: 3.days.ago,
+        tags: ["뉴스레터", "주간정리", "시장동향"],
+        content_type: "newsletter" %>
+    
+    <%= render 'shared/content_card', 
+        title: "부동산 시장 분석과 전망", 
+        description: "최근 부동산 정책 변화와 시장 상황을 분석하고, 향후 전망을 예측해봅니다. 주택 구매를 고려 중인 분들에게 도움이 될 정보입니다.", 
+        author: "최부동산",
+        published_at: 5.days.ago,
+        tags: ["부동산", "시장분석", "정책"],
+        content_type: "article" %>
+    
+    <%= render 'shared/content_card', 
+        title: "비트코인 투자, 지금이 기회일까?", 
+        description: "암호화폐 시장의 최근 동향과 비트코인 투자에 대한 전문가 의견을 정리했습니다. 리스크와 기회를 균형있게 살펴보세요.", 
+        author: "김크립토",
+        published_at: 1.day.ago,
+        tags: ["비트코인", "암호화폐", "투자기회"],
+        content_type: "video" %>
+    
+    <%= render 'shared/content_card', 
+        title: "연말정산 완벽 가이드", 
+        description: "2024년 연말정산 변경사항과 절세 팁을 상세히 안내드립니다. 놓치기 쉬운 공제 항목들을 체크하고 환급금을 최대화하세요.", 
+        author: "세무사 정",
+        published_at: 1.week.ago,
+        tags: ["연말정산", "절세", "환급"],
+        content_type: "article" %>
+  </div>
+</section>
+
+<!-- Categories Section -->
+<section class="mb-12">
+  <h2 class="font-bold tracking-tight mb-8" style="color: #1A202C; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">카테고리별 콘텐츠</h2>
+  
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <a href="#" class="group relative rounded-lg border p-6 hover:shadow-md transition-all" style="border-color: #E2E8F0; background-color: #FFFFFF;">
+      <div class="flex items-center space-x-3">
+        <%= icon('trending-up', class: 'h-8 w-8', style: 'color: #0052CC;') %>
+        <div>
+          <h3 class="font-semibold group-hover:opacity-80 transition-opacity" style="color: #1A202C;">주식투자</h3>
+          <p class="text-sm" style="color: #718096;">124개 콘텐츠</p>
+        </div>
+      </div>
+    </a>
+    
+    <a href="#" class="group relative rounded-lg border p-6 hover:shadow-md transition-all" style="border-color: #E2E8F0; background-color: #FFFFFF;">
+      <div class="flex items-center space-x-3">
+        <%= icon('home', class: 'h-8 w-8', style: 'color: #0052CC;') %>
+        <div>
+          <h3 class="font-semibold group-hover:opacity-80 transition-opacity" style="color: #1A202C;">부동산</h3>
+          <p class="text-sm" style="color: #718096;">89개 콘텐츠</p>
+        </div>
+      </div>
+    </a>
+    
+    <a href="#" class="group relative rounded-lg border p-6 hover:shadow-md transition-all" style="border-color: #E2E8F0; background-color: #FFFFFF;">
+      <div class="flex items-center space-x-3">
+        <%= icon('currency-bitcoin', class: 'h-8 w-8', style: 'color: #0052CC;') %>
+        <div>
+          <h3 class="font-semibold group-hover:opacity-80 transition-opacity" style="color: #1A202C;">암호화폐</h3>
+          <p class="text-sm" style="color: #718096;">67개 콘텐츠</p>
+        </div>
+      </div>
+    </a>
+    
+    <a href="#" class="group relative rounded-lg border p-6 hover:shadow-md transition-all" style="border-color: #E2E8F0; background-color: #FFFFFF;">
+      <div class="flex items-center space-x-3">
+        <%= icon('calculator', class: 'h-8 w-8', style: 'color: #0052CC;') %>
+        <div>
+          <h3 class="font-semibold group-hover:opacity-80 transition-opacity" style="color: #1A202C;">세금/절세</h3>
+          <p class="text-sm" style="color: #718096;">45개 콘텐츠</p>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
