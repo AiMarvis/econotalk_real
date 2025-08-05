@@ -1,0 +1,96 @@
+<%# 
+  Content Form Component
+  Usage: render 'contents/form', content: @content
+%>
+
+<%= form_with model: content do |form| %>
+  <div class="space-y-6">
+    <!-- Title Field -->
+    <div class="space-y-2">
+      <%= form.label :title, "제목", class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", style: "color: #1A202C;" %>
+      <%= form.text_field :title, 
+          placeholder: "콘텐츠 제목을 입력하세요",
+          class: "flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          style: "border-color: #E2E8F0; background-color: #FFFFFF; color: #1A202C; --tw-ring-color: #0052CC;" %>
+      <% content.errors.full_messages_for(:title).each do |message| %>
+        <p class="text-sm font-medium" style="color: #E53E3E;"><%= message %></p>
+      <% end %>
+    </div>
+
+    <!-- Body Field -->
+    <div class="space-y-2">
+      <%= form.label :body, "내용", class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", style: "color: #1A202C;" %>
+      <%= form.text_area :body, 
+          placeholder: "콘텐츠 내용을 입력하세요",
+          rows: 6,
+          class: "flex min-h-[80px] w-full rounded-md border px-3 py-2 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          style: "border-color: #E2E8F0; background-color: #FFFFFF; color: #1A202C; --tw-ring-color: #0052CC;" %>
+      <% content.errors.full_messages_for(:body).each do |message| %>
+        <p class="text-sm font-medium" style="color: #E53E3E;"><%= message %></p>
+      <% end %>
+    </div>
+
+    <!-- Link Field -->
+    <div class="space-y-2">
+      <%= form.label :link, "링크 (선택사항)", class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", style: "color: #1A202C;" %>
+      <div class="relative">
+        <%= icon('link', class: 'absolute left-2.5 top-2.5 h-4 w-4', style: 'color: #718096;') %>
+        <%= form.url_field :link, 
+            placeholder: "https://example.com",
+            class: "flex h-10 w-full rounded-md border pl-8 pr-3 py-2 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            style: "border-color: #E2E8F0; background-color: #FFFFFF; color: #1A202C; --tw-ring-color: #0052CC;" %>
+      </div>
+      <% content.errors.full_messages_for(:link).each do |message| %>
+        <p class="text-sm font-medium" style="color: #E53E3E;"><%= message %></p>
+      <% end %>
+    </div>
+
+    <!-- Content Type Field -->
+    <div class="space-y-2">
+      <%= form.label :content_type, "콘텐츠 유형", class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", style: "color: #1A202C;" %>
+      <%= form.select :content_type, 
+          options_for_select([
+            ['컬럼/기사', 'column'],
+            ['비디오', 'video'], 
+            ['뉴스레터', 'newsletter']
+          ], content.content_type),
+          { prompt: "유형을 선택하세요" },
+          { 
+            class: "flex h-10 w-full items-center justify-between rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            style: "border-color: #E2E8F0; background-color: #FFFFFF; color: #1A202C; --tw-ring-color: #0052CC;"
+          } %>
+      <% content.errors.full_messages_for(:content_type).each do |message| %>
+        <p class="text-sm font-medium" style="color: #E53E3E;"><%= message %></p>
+      <% end %>
+    </div>
+
+    <!-- Tags Field -->
+    <div class="space-y-2">
+      <%= form.label :tag_names, "태그", class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", style: "color: #1A202C;" %>
+      <%= form.text_field :tag_names, 
+          value: content.tags.map(&:name).join(', '),
+          placeholder: "태그를 쉼표로 구분하여 입력하세요 (예: 경제, 주식, 부동산)",
+          class: "flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          style: "border-color: #E2E8F0; background-color: #FFFFFF; color: #1A202C; --tw-ring-color: #0052CC;" %>
+      <p class="text-xs" style="color: #718096;">태그는 쉼표로 구분하여 여러 개 입력할 수 있습니다. 새로운 태그는 자동으로 생성됩니다.</p>
+      <% content.errors.full_messages_for(:tag_names).each do |message| %>
+        <p class="text-sm font-medium" style="color: #E53E3E;"><%= message %></p>
+      <% end %>
+    </div>
+
+    <!-- User ID (Hidden for now - will be set from current_user later) -->
+    <%= form.hidden_field :user_id, value: 1 %>
+
+    <!-- Action Buttons -->
+    <div class="flex items-center space-x-4 pt-4">
+      <%= form.submit content.persisted? ? "콘텐츠 수정" : "콘텐츠 생성", 
+          class: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2",
+          style: "background-color: #0052CC; color: #FFFFFF; --tw-ring-color: #0052CC;" %>
+      
+      <%= link_to "취소", 
+          content.persisted? ? content_path(content) : contents_path,
+          class: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border h-10 px-4 py-2",
+          style: "border-color: #E2E8F0; background-color: transparent; color: #1A202C; --tw-ring-color: #0052CC;" %>
+    </div>
+  </div>
+<% end %>

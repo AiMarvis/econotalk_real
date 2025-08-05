@@ -1,0 +1,48 @@
+<div class="container mx-auto px-4 py-8 max-w-2xl">
+  <!-- Header Section -->
+  <div class="flex items-center space-x-4 mb-8">
+    <%= link_to contents_path, class: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-9 w-9", style: "border: 1px solid #E2E8F0; background-color: transparent; color: #1A202C; --tw-ring-color: #0052CC;" do %>
+      <%= icon('arrow-left', class: 'h-4 w-4') %>
+    <% end %>
+    
+    <div class="space-y-1">
+      <h1 class="text-2xl font-bold tracking-tight" style="color: #1A202C;">
+        새 콘텐츠 작성
+      </h1>
+      <p class="text-sm" style="color: #718096;">
+        경제 관련 콘텐츠를 작성하고 태그를 추가하세요
+      </p>
+    </div>
+  </div>
+
+  <!-- Form Section -->
+  <div class="rounded-lg border p-6" style="border-color: #E2E8F0; background-color: #FFFFFF;">
+    <%= render 'form', content: @content %>
+  </div>
+
+  <!-- Tips Section -->
+  <div class="mt-8 rounded-lg border p-6" style="border-color: #E2E8F0; background-color: #F5F7FA;">
+    <h3 class="flex items-center text-sm font-medium mb-4" style="color: #1A202C;">
+      <%= icon('bulb', class: 'h-4 w-4 mr-2', style: 'color: #0052CC;') %>
+      작성 팁
+    </h3>
+    <ul class="space-y-2 text-sm" style="color: #718096;">
+      <li class="flex items-start space-x-2">
+        <span class="inline-block w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style="background-color: #0052CC;"></span>
+        <span>제목은 명확하고 흥미롭게 작성하세요</span>
+      </li>
+      <li class="flex items-start space-x-2">
+        <span class="inline-block w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style="background-color: #0052CC;"></span>
+        <span>태그는 콘텐츠 검색과 분류에 도움이 됩니다</span>
+      </li>
+      <li class="flex items-start space-x-2">
+        <span class="inline-block w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style="background-color: #0052CC;"></span>
+        <span>외부 링크가 있다면 원본 출처를 명확히 해주세요</span>
+      </li>
+      <li class="flex items-start space-x-2">
+        <span class="inline-block w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style="background-color: #0052CC;"></span>
+        <span>콘텐츠 유형을 정확히 선택하면 더 나은 노출이 가능합니다</span>
+      </li>
+    </ul>
+  </div>
+</div>
