@@ -194,4 +194,115 @@ class ContentsControllerTest < ActionDispatch::IntegrationTest
     assert_includes content.tags.map(&:name), "경제"
     assert_includes content.tags.map(&:name), "주식"
   end
+
+  # Thumbnail upload tests
+  test "should create content with thumbnail attachment" do
+    image_file = fixture_file_upload("test_image.png", "image/png")
+    
+    assert_difference("Content.count") do
+      post contents_url, params: { 
+        content: { 
+          title: "Content with Thumbnail", 
+          body: "Test body with thumbnail", 
+          content_type: "column",
+          user_id: @user.id,
+          thumbnail: image_file
+        } 
+      }
+    end
+
+    content = Content.last
+    assert_redirected_to content_url(content)
+    assert content.thumbnail.attached?
+    assert_equal "image/png", content.thumbnail.content_type
+  end
+
+  test "should update content with thumbnail attachment" do
+    image_file = fixture_file_upload("test_image.png", "image/png")
+    
+    patch content_url(@content), params: { 
+      content: { 
+        title: @content.title, 
+        body: @content.body,
+        content_type: @content.content_type,
+        user_id: @user.id,
+        thumbnail: image_file
+      } 
+    }
+    
+    assert_redirected_to content_url(@content)
+    @content.reload
+    assert @content.thumbnail.attached?
+    assert_equal "image/png", @content.thumbnail.content_type
+  end
+
+  test "should create content without thumbnail attachment" do
+    assert_difference("Content.count") do
+      post contents_url, params: { 
+        content: { 
+          title: "Content without Thumbnail", 
+          body: "Test body without thumbnail", 
+          content_type: "video",
+          user_id: @user.id
+        } 
+      }
+    end
+
+    content = Content.last
+    assert_redirected_to content_url(content)
+    assert_not content.thumbnail.attached?
+  end
+
+  test "should update content and replace existing thumbnail" do
+    # First attach a thumbnail
+    initial_image = fixture_file_upload("test_image.png", "image/png")
+    @content.thumbnail.attach(initial_image)
+    assert @content.thumbnail.attached?
+    
+    # Now update with a new thumbnail
+    new_image = fixture_file_upload("test_image.png", "image/png")
+    patch content_url(@content), params: { 
+      content: { 
+        title: @content.title, 
+        body: @content.body,
+        content_type: @content.content_type,
+        user_id: @user.id,
+        thumbnail: new_image
+      } 
+    }
+    
+    assert_redirected_to content_url(@content)
+    @content.reload
+    assert @content.thumbnail.attached?
+    assert_equal "image/png", @content.thumbnail.content_type
+  end
+
+  private
+
+  def fixture_file_upload(filename, content_type)
+    # Create a temporary file for testing
+    file_path = Rails.root.join("test", "fixtures", "files", filename)
+    
+    # Create the directory if it doesn't exist
+    FileUtils.mkdir_p(File.dirname(file_path))
+    
+    # Create a simple PNG file for testing if it doesn't exist
+    unless File.exist?(file_path)
+      # Create a 1x1 PNG image (minimal valid PNG)
+      png_data = [
+        0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, # PNG signature
+        0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52, # IHDR chunk
+        0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, # 1x1 dimensions
+        0x08, 0x06, 0x00, 0x00, 0x00, 0x1F, 0x15, 0xC4, # bit depth, color type, etc.
+        0x89, 0x00, 0x00, 0x00, 0x0A, 0x49, 0x44, 0x41, # IDAT chunk
+        0x54, 0x78, 0x9C, 0x62, 0x00, 0x01, 0x00, 0x00, # compressed image data
+        0x05, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, # IEND chunk
+        0x00, 0x49, 0x45, 0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82
+      ].pack('C*')
+      
+      File.binwrite(file_path, png_data)
+    end
+    
+    Rack::Test::UploadedFile.new(file_path, content_type)
+  end
 end

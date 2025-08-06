@@ -64,6 +64,69 @@
       <% end %>
     </div>
 
+    <!-- Thumbnail Upload Field -->
+    <div class="space-y-2" data-controller="image-preview">
+      <%= form.label :thumbnail, "썸네일 이미지 (선택사항)", class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", style: "color: #1A202C;" %>
+      
+      <!-- Current thumbnail preview (if editing) -->
+      <% if content.persisted? && content.thumbnail.attached? %>
+        <div class="current-image-preview mb-4">
+          <p class="text-sm mb-2" style="color: #718096;">현재 썸네일:</p>
+          <div class="relative inline-block">
+            <%= image_tag content.thumbnail.variant(resize_to_limit: [200, 150]), 
+                alt: "현재 썸네일",
+                class: "rounded-md border",
+                style: "border-color: #E2E8F0;" %>
+          </div>
+        </div>
+      <% end %>
+      
+      <!-- File input with custom styling -->
+      <div class="file-upload-area">
+        <%= form.file_field :thumbnail,
+            accept: "image/*",
+            data: { 
+              "image-preview-target": "fileInput",
+              "action": "change->image-preview#showPreview"
+            },
+            class: "sr-only" %>
+        
+        <label for="<%= form.object_name %>_thumbnail" class="cursor-pointer">
+          <div class="flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-6 transition-colors hover:bg-gray-50" 
+               style="border-color: #E2E8F0; background-color: #FFFFFF;"
+               data-image-preview-target="dropArea">
+            <div class="flex flex-col items-center space-y-2" data-image-preview-target="uploadPrompt">
+              <%= icon('photo', class: 'h-8 w-8 mb-2', style: 'color: #718096;') %>
+              <p class="text-sm font-medium" style="color: #1A202C;">썸네일 이미지 업로드</p>
+              <p class="text-xs" style="color: #718096;">PNG, JPG, GIF 파일을 클릭하거나 드래그하여 업로드하세요</p>
+              <p class="text-xs" style="color: #718096;">최대 파일 크기: 5MB</p>
+            </div>
+          </div>
+        </label>
+        
+        <!-- Image preview area -->
+        <div data-image-preview-target="imagePreview" class="hidden mt-4">
+          <p class="text-sm mb-2" style="color: #718096;">미리보기:</p>
+          <div class="relative inline-block">
+            <img data-image-preview-target="previewImage" 
+                 alt="이미지 미리보기"
+                 class="max-w-xs max-h-48 rounded-md border"
+                 style="border-color: #E2E8F0;" />
+            <button type="button" 
+                    data-action="click->image-preview#removePreview"
+                    class="absolute -top-2 -right-2 inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2"
+                    style="background-color: #E53E3E; color: #FFFFFF; --tw-ring-color: #E53E3E;">
+              <%= icon('x', class: 'h-3 w-3') %>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <% content.errors.full_messages_for(:thumbnail).each do |message| %>
+        <p class="text-sm font-medium" style="color: #E53E3E;"><%= message %></p>
+      <% end %>
+    </div>
+
     <!-- Tags Field -->
     <div class="space-y-2">
       <%= form.label :tag_names, "태그", class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", style: "color: #1A202C;" %>

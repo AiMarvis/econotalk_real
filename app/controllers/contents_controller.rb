@@ -59,6 +59,6 @@ class ContentsController < ApplicationController
   end
 
   def content_params
-    params.require(:content).permit(:title, :body, :link, :content_type, :user_id, :tag_names)
+    params.require(:content).permit(:title, :body, :link, :content_type, :user_id, :tag_names, :thumbnail)
   end
 end
