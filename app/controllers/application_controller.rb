@@ -4,4 +4,7 @@ class ApplicationController < ActionController::Base
   
   # Include Pagy backend module for pagination
   include Pagy::Backend
+  
+  # Require authentication for all actions by default
+  before_action :authenticate_user!
 end

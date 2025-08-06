@@ -1,4 +1,6 @@
 class FeedController < ApplicationController
+  # Allow non-authenticated users to view feeds
+  skip_before_action :authenticate_user!, only: [:index, :explore]
   def index
     # 콘텐츠를 최신 순으로 정렬하고 연관된 데이터 포함 (N+1 쿼리 방지)
     @pagy, @contents = pagy(

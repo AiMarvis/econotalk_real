@@ -43,14 +43,24 @@
           </div>
         </div>
         
-        <div class="flex items-center space-x-2">
-          <%= link_to edit_content_path(@content), 
-              class: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border h-10 px-4 py-2",
-              style: "border-color: #E2E8F0; background-color: transparent; color: #1A202C; --tw-ring-color: #0052CC;" do %>
-            <%= icon('edit', class: 'h-4 w-4 mr-2') %>
-            수정
-          <% end %>
-        </div>
+        <% if user_signed_in? && current_user == @content.user %>
+          <div class="flex items-center space-x-2">
+            <%= link_to edit_content_path(@content), 
+                class: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border h-10 px-4 py-2",
+                style: "border-color: #E2E8F0; background-color: transparent; color: #1A202C; --tw-ring-color: #0052CC;" do %>
+              <%= icon('edit', class: 'h-4 w-4 mr-2') %>
+              수정
+            <% end %>
+            
+            <%= button_to content_path(@content), method: :delete, 
+                confirm: "정말로 삭제하시겠습니까?",
+                class: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border h-10 px-4 py-2",
+                style: "border-color: #E53E3E; background-color: transparent; color: #E53E3E; --tw-ring-color: #E53E3E;" do %>
+              <%= icon('trash', class: 'h-4 w-4 mr-2') %>
+              삭제
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

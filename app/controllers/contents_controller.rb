@@ -1,4 +1,6 @@
 class ContentsController < ApplicationController
+  # Allow non-authenticated users to view content (index and show actions)
+  skip_before_action :authenticate_user!, only: [:index, :show]
   before_action :set_content, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -15,7 +17,7 @@ class ContentsController < ApplicationController
 
   def create
     @content = Content.new(content_params.except(:tag_names))
-    @content.user_id = 1  # TODO: Replace with current_user.id when authentication is implemented
+    @content.user = current_user
     
     # Handle tag processing
     if content_params[:tag_names].present?

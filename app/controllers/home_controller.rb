@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  # Allow non-authenticated users to view home page
+  skip_before_action :authenticate_user!, only: [:index]
   def index
     # Fetch featured content (latest 6 contents)
     @featured_contents = Content.includes(:user, :tags, thumbnail_attachment: :blob)
