@@ -1,8 +1,9 @@
 <div class="max-w-4xl mx-auto p-6">
   <div class="flex justify-between items-center mb-8">
-    <h1 class="text-3xl font-bold text-gray-900">피드</h1>
+    <h1 class="text-3xl font-bold" style="color: #1A202C;">피드</h1>
     <%= link_to "탐색", explore_path, 
-        class: "inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors" %>
+        class: "inline-flex items-center px-4 py-2 rounded-lg transition-colors hover:opacity-90",
+        style: "background-color: #0052CC; color: #FFFFFF;" %>
   </div>
 
   <%= turbo_frame_tag "contents", 
@@ -23,7 +24,8 @@
             action: "auto-load#load",
             auto_load_target: "link"
           },
-          class: "block w-full py-4 text-center text-gray-600 hover:text-gray-800 border-2 border-dashed border-gray-200 rounded-lg hover:border-gray-300 transition-colors" %>
+          class: "block w-full py-4 text-center border-2 border-dashed rounded-lg transition-colors hover:opacity-80",
+          style: "color: #718096; border-color: #E2E8F0;" %>
     <% end %>
   <% end %>
 </div>
