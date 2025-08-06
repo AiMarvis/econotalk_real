@@ -6,6 +6,17 @@ class Content < ApplicationRecord
   
   enum :content_type, { column: 0, video: 1, newsletter: 2 }
   
+  # Content type helpers for views
+  def self.content_type_options
+    content_types.map do |key, _|
+      [I18n.t("contents.content_types.#{key}"), key]
+    end
+  end
+  
+  def content_type_display_name
+    I18n.t("contents.content_types.#{content_type}")
+  end
+  
   validates :title, presence: true, length: { minimum: 1, maximum: 200 }
   validates :body, presence: true, length: { minimum: 1 }
   validates :content_type, presence: true

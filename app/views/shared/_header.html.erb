@@ -11,9 +11,9 @@
     <!-- Desktop Navigation -->
     <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
       <%= link_to "홈", root_path, class: "transition-colors hover:opacity-80", style: "color: #718096;" %>
-      <%= link_to "피드", "#", class: "transition-colors hover:opacity-80", style: "color: #718096;" %>
-      <%= link_to "채팅", "#", class: "transition-colors hover:opacity-80", style: "color: #718096;" %>
-      <%= link_to "북마크", "#", class: "transition-colors hover:opacity-80", style: "color: #718096;" %>
+      <%= link_to "피드", feed_path, class: "transition-colors hover:opacity-80", style: "color: #718096;" %>
+      <%= link_to "채팅", chat_path, class: "transition-colors hover:opacity-80", style: "color: #718096;" %>
+      <%= link_to "북마크", bookmarks_path, class: "transition-colors hover:opacity-80", style: "color: #718096;" %>
     </nav>
 
     <!-- Search Bar (Desktop) -->
@@ -76,9 +76,9 @@
       <!-- Mobile Navigation Links -->
       <nav class="flex flex-col space-y-2">
         <%= link_to "홈", root_path, class: "flex items-center px-2 py-2 text-sm font-medium transition-colors hover:bg-gray-100 rounded-md", style: "color: #718096;" %>
-        <%= link_to "피드", "#", class: "flex items-center px-2 py-2 text-sm font-medium transition-colors hover:bg-gray-100 rounded-md", style: "color: #718096;" %>
-        <%= link_to "채팅", "#", class: "flex items-center px-2 py-2 text-sm font-medium transition-colors hover:bg-gray-100 rounded-md", style: "color: #718096;" %>
-        <%= link_to "북마크", "#", class: "flex items-center px-2 py-2 text-sm font-medium transition-colors hover:bg-gray-100 rounded-md", style: "color: #718096;" %>
+        <%= link_to "피드", feed_path, class: "flex items-center px-2 py-2 text-sm font-medium transition-colors hover:bg-gray-100 rounded-md", style: "color: #718096;" %>
+        <%= link_to "채팅", chat_path, class: "flex items-center px-2 py-2 text-sm font-medium transition-colors hover:bg-gray-100 rounded-md", style: "color: #718096;" %>
+        <%= link_to "북마크", bookmarks_path, class: "flex items-center px-2 py-2 text-sm font-medium transition-colors hover:bg-gray-100 rounded-md", style: "color: #718096;" %>
       </nav>
     </div>
   </div>

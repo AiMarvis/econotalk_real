@@ -1,18 +1,1 @@
-<%= turbo_stream.append "contents" do %>
-  <div class="space-y-6">
-    <% @contents.each do |content| %>
-      <%= render "shared/content_card", content: content %>
-    <% end %>
-  </div>
-
-  <% if @pagy.next %>
-    <%= link_to "더 보기", 
-        pagy_url_for(@pagy, @pagy.next),
-        data: { 
-          turbo_frame: "contents",
-          action: "auto-load#load",
-          auto_load_target: "link"
-        },
-        class: "block w-full py-4 text-center text-gray-600 hover:text-gray-800 border-2 border-dashed border-gray-200 rounded-lg hover:border-gray-300 transition-colors" %>
-  <% end %>
-<% end %>
+<%= render "shared/feed_turbo_stream" %>

@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   get "feed", to: "feed#index", as: :feed
   get "explore", to: "feed#explore", as: :explore
   
+  # Chat routes
+  get "chat", to: "chat#index", as: :chat
+  
+  # Bookmarks routes
+  get "bookmarks", to: "bookmarks#index", as: :bookmarks
+  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

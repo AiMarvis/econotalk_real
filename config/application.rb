@@ -23,5 +23,9 @@ module EconotalkReal
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    
+    # I18n configuration
+    config.i18n.default_locale = :ko
+    config.i18n.available_locales = [:ko, :en]
   end
 end

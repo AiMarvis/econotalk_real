@@ -3,6 +3,7 @@ class ContentsController < ApplicationController
 
   def index
     @contents = Content.includes(:tags, :user).all
+    @content_stats = Content.group(:content_type).count
   end
 
   def show
@@ -14,6 +15,7 @@ class ContentsController < ApplicationController
 
   def create
     @content = Content.new(content_params.except(:tag_names))
+    @content.user_id = 1  # TODO: Replace with current_user.id when authentication is implemented
     
     # Handle tag processing
     if content_params[:tag_names].present?
@@ -59,6 +61,6 @@ class ContentsController < ApplicationController
   end
 
   def content_params
-    params.require(:content).permit(:title, :body, :link, :content_type, :user_id, :tag_names, :thumbnail)
+    params.require(:content).permit(:title, :body, :link, :content_type, :tag_names, :thumbnail)
   end
 end

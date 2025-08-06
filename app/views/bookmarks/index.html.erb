@@ -1,0 +1,102 @@
+<div class="container mx-auto px-4 py-8 max-w-7xl">
+  <!-- Header Section -->
+  <div class="flex items-center justify-between mb-8">
+    <div class="space-y-1">
+      <h1 class="text-2xl font-bold tracking-tight" style="color: #1A202C;">
+        북마크
+      </h1>
+      <p class="text-sm" style="color: #718096;">
+        저장한 경제 콘텐츠를 관리하고 다시 찾아보세요
+      </p>
+    </div>
+    
+    <div class="flex items-center space-x-2">
+      <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border h-10 px-4 py-2" style="border-color: #E2E8F0; background-color: transparent; color: #1A202C; --tw-ring-color: #0052CC;">
+        <%= icon('filter', class: 'h-4 w-4 mr-2') %>
+        필터
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats Section -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+    <div class="rounded-lg border p-4" style="border-color: #E2E8F0; background-color: #FFFFFF;">
+      <div class="flex items-center justify-between space-y-0 pb-2">
+        <h3 class="tracking-tight text-sm font-medium" style="color: #718096;">전체 북마크</h3>
+        <%= icon('bookmark', class: 'h-4 w-4', style: 'color: #718096;') %>
+      </div>
+      <div class="text-2xl font-bold" style="color: #1A202C;">0</div>
+      <p class="text-xs" style="color: #718096;">아직 북마크가 없습니다</p>
+    </div>
+    
+    <div class="rounded-lg border p-4" style="border-color: #E2E8F0; background-color: #FFFFFF;">
+      <div class="flex items-center justify-between space-y-0 pb-2">
+        <h3 class="tracking-tight text-sm font-medium" style="color: #718096;">컬럼/기사</h3>
+        <%= icon('article', class: 'h-4 w-4', style: 'color: #718096;') %>
+      </div>
+      <div class="text-2xl font-bold" style="color: #1A202C;">0</div>
+    </div>
+    
+    <div class="rounded-lg border p-4" style="border-color: #E2E8F0; background-color: #FFFFFF;">
+      <div class="flex items-center justify-between space-y-0 pb-2">
+        <h3 class="tracking-tight text-sm font-medium" style="color: #718096;">비디오</h3>
+        <%= icon('video', class: 'h-4 w-4', style: 'color: #718096;') %>
+      </div>
+      <div class="text-2xl font-bold" style="color: #1A202C;">0</div>
+    </div>
+    
+    <div class="rounded-lg border p-4" style="border-color: #E2E8F0; background-color: #FFFFFF;">
+      <div class="flex items-center justify-between space-y-0 pb-2">
+        <h3 class="tracking-tight text-sm font-medium" style="color: #718096;">뉴스레터</h3>
+        <%= icon('mail', class: 'h-4 w-4', style: 'color: #718096;') %>
+      </div>
+      <div class="text-2xl font-bold" style="color: #1A202C;">0</div>
+    </div>
+  </div>
+
+  <!-- Bookmarks Content -->
+  <% if @bookmarks.empty? %>
+    <!-- Empty State -->
+    <div class="text-center py-12">
+      <div class="mx-auto max-w-md">
+        <%= icon('bookmark-plus', class: 'mx-auto h-12 w-12 mb-4', style: 'color: #718096;') %>
+        <h3 class="mt-2 text-sm font-semibold" style="color: #1A202C;">아직 북마크가 없습니다</h3>
+        <p class="mt-1 text-sm" style="color: #718096;">관심 있는 경제 콘텐츠를 북마크해보세요.</p>
+        <div class="mt-6">
+          <%= link_to feed_path,
+              class: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2",
+              style: "background-color: #0052CC; color: #FFFFFF; --tw-ring-color: #0052CC;" do %>
+            <%= icon('search', class: 'h-4 w-4 mr-2') %>
+            콘텐츠 둘러보기
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <!-- Bookmarks Grid (when implemented) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @bookmarks.each do |bookmark| %>
+        <!-- Bookmark cards will be rendered here -->
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Categories Filter (Placeholder) -->
+  <div class="mt-12">
+    <h2 class="text-lg font-semibold mb-4" style="color: #1A202C;">카테고리별 보기</h2>
+    <div class="flex flex-wrap gap-2">
+      <button class="inline-flex items-center rounded-full px-3 py-1.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2" style="background-color: #0052CC; color: #FFFFFF; --tw-ring-color: #0052CC;">
+        전체
+      </button>
+      <button class="inline-flex items-center rounded-full px-3 py-1.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2" style="background-color: #F5F7FA; color: #718096; --tw-ring-color: #0052CC;">
+        컬럼/기사
+      </button>
+      <button class="inline-flex items-center rounded-full px-3 py-1.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2" style="background-color: #F5F7FA; color: #718096; --tw-ring-color: #0052CC;">
+        비디오
+      </button>
+      <button class="inline-flex items-center rounded-full px-3 py-1.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2" style="background-color: #F5F7FA; color: #718096; --tw-ring-color: #0052CC;">
+        뉴스레터
+      </button>
+    </div>
+  </div>
+</div>

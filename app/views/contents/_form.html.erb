@@ -7,9 +7,9 @@
   <div class="space-y-6">
     <!-- Title Field -->
     <div class="space-y-2">
-      <%= form.label :title, "제목", class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", style: "color: #1A202C;" %>
+      <%= form.label :title, t('contents.form.title'), class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", style: "color: #1A202C;" %>
       <%= form.text_field :title, 
-          placeholder: "콘텐츠 제목을 입력하세요",
+          placeholder: t('contents.form.title_placeholder'),
           class: "flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           style: "border-color: #E2E8F0; background-color: #FFFFFF; color: #1A202C; --tw-ring-color: #0052CC;" %>
       <% content.errors.full_messages_for(:title).each do |message| %>
@@ -19,9 +19,9 @@
 
     <!-- Body Field -->
     <div class="space-y-2">
-      <%= form.label :body, "내용", class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", style: "color: #1A202C;" %>
+      <%= form.label :body, t('contents.form.body'), class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", style: "color: #1A202C;" %>
       <%= form.text_area :body, 
-          placeholder: "콘텐츠 내용을 입력하세요",
+          placeholder: t('contents.form.body_placeholder'),
           rows: 6,
           class: "flex min-h-[80px] w-full rounded-md border px-3 py-2 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           style: "border-color: #E2E8F0; background-color: #FFFFFF; color: #1A202C; --tw-ring-color: #0052CC;" %>
@@ -32,11 +32,11 @@
 
     <!-- Link Field -->
     <div class="space-y-2">
-      <%= form.label :link, "링크 (선택사항)", class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", style: "color: #1A202C;" %>
+      <%= form.label :link, t('contents.form.link'), class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", style: "color: #1A202C;" %>
       <div class="relative">
         <%= icon('link', class: 'absolute left-2.5 top-2.5 h-4 w-4', style: 'color: #718096;') %>
         <%= form.url_field :link, 
-            placeholder: "https://example.com",
+            placeholder: t('contents.form.link_placeholder'),
             class: "flex h-10 w-full rounded-md border pl-8 pr-3 py-2 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
             style: "border-color: #E2E8F0; background-color: #FFFFFF; color: #1A202C; --tw-ring-color: #0052CC;" %>
       </div>
@@ -141,8 +141,7 @@
       <% end %>
     </div>
 
-    <!-- User ID (Hidden for now - will be set from current_user later) -->
-    <%= form.hidden_field :user_id, value: 1 %>
+    <!-- User ID will be set automatically in the controller from current_user -->
 
     <!-- Action Buttons -->
     <div class="flex items-center space-x-4 pt-4">
