@@ -1,0 +1,34 @@
+<div class="max-w-4xl mx-auto p-6">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">탐색</h1>
+    <%= link_to "피드", feed_path, 
+        class: "inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors" %>
+  </div>
+
+  <!-- 향후 태그 필터링 추가 예정 -->
+  <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+    <p class="text-sm text-blue-800">💡 태그별 필터링 기능이 곧 추가될 예정입니다.</p>
+  </div>
+
+  <%= turbo_frame_tag "contents", 
+      class: "space-y-6", 
+      data: { controller: "auto-load" } do %>
+    
+    <div class="space-y-6">
+      <% @contents.each do |content| %>
+        <%= render "shared/content_card", content: content %>
+      <% end %>
+    </div>
+
+    <% if @pagy.next %>
+      <%= link_to "더 보기", 
+          pagy_url_for(@pagy, @pagy.next),
+          data: { 
+            turbo_frame: "contents",
+            action: "auto-load#load",
+            auto_load_target: "link"
+          },
+          class: "block w-full py-4 text-center text-gray-600 hover:text-gray-800 border-2 border-dashed border-gray-200 rounded-lg hover:border-gray-300 transition-colors" %>
+    <% end %>
+  <% end %>
+</div>

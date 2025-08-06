@@ -31,18 +31,35 @@ This project uses ClaudeOnRails with specialized agents for different Rails deve
 ### Code Quality Guidelines
 Follow clean code principles and maintain consistency across the codebase.
 
-### Automated Code Review Process
-When using `/sc:implement` command, an automated code review process is triggered:
-- **Post-Implementation Review**: After each `/sc:implement` completion, automatically analyze implemented code using Gemini CLI MCP
-- **Review Scope**: Analyze code quality, identify potential refactoring opportunities, and suggest improvements
-- **Review Language**: All review content must be written in Korean (한국어로 리뷰 내용 작성)
-- **Non-Intrusive**: Gemini CLI MCP is used for analysis only - no direct code modifications allowed
-- **Review Output**: Provide structured feedback including code quality assessment and refactoring recommendations
+### MANDATORY Automated Code Review Process
+**CRITICAL REQUIREMENT**: When using `/sc:implement` command, Claude MUST automatically execute code review process immediately after implementation completion.
 
-**Important Notes:**
-- This automated review only triggers with `/sc:implement` command usage
-- Gemini CLI MCP serves as analysis tool only, not for code modification
-- Claude Code remains the primary implementation tool
+**Automatic Execution Flow:**
+1. **Implementation Completion**: After `/sc:implement` finishes successfully
+2. **IMMEDIATE AUTO-TRIGGER**: Claude must automatically call `mcp__gemini-cli__ask-gemini` tool
+3. **Review Scope**: Analyze all implemented code files for quality, potential issues, and improvements
+4. **Review Language**: ALL review content MUST be written in Korean (한국어 필수)
+5. **Review Output**: Provide structured feedback with code quality assessment and refactoring recommendations
+
+**Gemini CLI MCP Integration:**
+```
+MUST execute after every /sc:implement:
+mcp__gemini-cli__ask-gemini with changeMode: false
+Prompt: "방금 구현된 코드를 분석하고 한국어로 코드 리뷰를 제공해주세요. 코드 품질, 잠재적 문제점, 리팩토링 기회를 분석해주세요."
+```
+
+**Implementation Requirements:**
+- ✅ AUTOMATIC execution - no user request needed
+- ✅ MANDATORY after every `/sc:implement` completion  
+- ✅ Korean language output only
+- ✅ Analysis-only mode (no code modifications)
+- ✅ Structured feedback format
+
+**Claude's Action Items:**
+1. Complete `/sc:implement` task
+2. **IMMEDIATELY** call Gemini CLI MCP for code review
+3. Present Korean code review results to user
+4. No additional user input required for this process
 
 ## Project Documentation
 

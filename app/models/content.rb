@@ -2,6 +2,7 @@ class Content < ApplicationRecord
   belongs_to :user
   has_many :content_tags, dependent: :destroy
   has_many :tags, through: :content_tags
+  has_one_attached :thumbnail
   
   enum :content_type, { column: 0, video: 1, newsletter: 2 }
   
@@ -9,4 +10,21 @@ class Content < ApplicationRecord
   validates :body, presence: true, length: { minimum: 1 }
   validates :content_type, presence: true
   validates :link, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), allow_blank: true }
+  
+  # 뷰에서 사용할 메서드들
+  def description
+    body&.truncate(200) || ""
+  end
+  
+  def author
+    user&.name || user&.email || "Unknown Author"
+  end
+  
+  def url
+    link.present? ? link : Rails.application.routes.url_helpers.content_path(self)
+  end
+  
+  def thumbnail_url
+    thumbnail.attached? ? Rails.application.routes.url_helpers.rails_blob_path(thumbnail, only_path: true) : nil
+  end
 end

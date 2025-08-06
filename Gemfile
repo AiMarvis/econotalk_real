@@ -20,6 +20,8 @@ gem "tailwindcss-rails"
 gem "jbuilder"
 # Icons for Rails applications
 gem "rails_icons"
+# Pagination
+gem "pagy", "~> 9.3"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"

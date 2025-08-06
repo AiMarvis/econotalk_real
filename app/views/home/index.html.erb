@@ -30,54 +30,15 @@
   
   <!-- Content Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Sample Content Cards -->
-    <%= render 'shared/content_card', 
-        title: "2025년 경제 전망과 투자 전략", 
-        description: "올해 경제 흐름을 파악하고 개인 투자자가 알아야 할 핵심 포인트들을 정리했습니다. 인플레이션, 금리 정책, 주식 시장 전망까지 한번에 확인하세요.", 
-        author: "김경제",
-        published_at: 2.days.ago,
-        tags: ["경제전망", "투자전략", "2025"],
-        content_type: "article" %>
-    
-    <%= render 'shared/content_card', 
-        title: "초보자를 위한 ETF 투자 가이드", 
-        description: "ETF가 무엇인지, 어떻게 선택하고 투자해야 하는지 쉽게 설명드립니다. 국내 ETF부터 해외 ETF까지 실전 투자 노하우를 공개합니다.", 
-        author: "이투자",
-        published_at: 1.week.ago,
-        tags: ["ETF", "초보투자", "투자가이드"],
-        content_type: "video" %>
-    
-    <%= render 'shared/content_card', 
-        title: "주간 경제 뉴스레터 #12", 
-        description: "이번 주 주요 경제 이슈와 시장 동향을 간단명료하게 정리했습니다. 바쁜 일상 속에서도 놓치지 말아야 할 경제 소식들을 확인하세요.", 
-        author: "박뉴스",
-        published_at: 3.days.ago,
-        tags: ["뉴스레터", "주간정리", "시장동향"],
-        content_type: "newsletter" %>
-    
-    <%= render 'shared/content_card', 
-        title: "부동산 시장 분석과 전망", 
-        description: "최근 부동산 정책 변화와 시장 상황을 분석하고, 향후 전망을 예측해봅니다. 주택 구매를 고려 중인 분들에게 도움이 될 정보입니다.", 
-        author: "최부동산",
-        published_at: 5.days.ago,
-        tags: ["부동산", "시장분석", "정책"],
-        content_type: "article" %>
-    
-    <%= render 'shared/content_card', 
-        title: "비트코인 투자, 지금이 기회일까?", 
-        description: "암호화폐 시장의 최근 동향과 비트코인 투자에 대한 전문가 의견을 정리했습니다. 리스크와 기회를 균형있게 살펴보세요.", 
-        author: "김크립토",
-        published_at: 1.day.ago,
-        tags: ["비트코인", "암호화폐", "투자기회"],
-        content_type: "video" %>
-    
-    <%= render 'shared/content_card', 
-        title: "연말정산 완벽 가이드", 
-        description: "2024년 연말정산 변경사항과 절세 팁을 상세히 안내드립니다. 놓치기 쉬운 공제 항목들을 체크하고 환급금을 최대화하세요.", 
-        author: "세무사 정",
-        published_at: 1.week.ago,
-        tags: ["연말정산", "절세", "환급"],
-        content_type: "article" %>
+    <% @featured_contents.each do |content| %>
+      <%= render 'shared/content_card', 
+          title: content.title, 
+          description: content.description, 
+          author: content.author,
+          published_at: content.created_at,
+          tags: content.tags.pluck(:name),
+          content_type: content.content_type %>
+    <% end %>
   </div>
 </section>
 
