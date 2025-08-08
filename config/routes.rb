@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :contents
+  resources :contents do
+    resource :bookmark, only: [:create, :destroy]
+  end
   get "home/index"
   
   # Feed routes

@@ -1,0 +1,31 @@
+<%= turbo_frame_tag "bookmark_#{content.id}", class: "inline-block" do %>
+  <% if user_signed_in? %>
+    <% if user.bookmarked?(content) %>
+      <%= button_to content_bookmark_path(content), 
+            method: :delete,
+            remote: true,
+            class: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 w-8 shadow-sm",
+            style: "background-color: rgba(251,191,36,0.9); --tw-ring-color: #F59E0B;",
+            data: { turbo_method: :delete },
+            title: "북마크 제거" do %>
+        <%= icon('bookmark', class: 'h-4 w-4', style: 'color: #92400E') %>
+      <% end %>
+    <% else %>
+      <%= button_to content_bookmark_path(content), 
+            method: :post,
+            remote: true,
+            class: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 w-8 shadow-sm",
+            style: "background-color: rgba(255,255,255,0.9); --tw-ring-color: #0052CC;",
+            data: { turbo_method: :post },
+            title: "북마크 추가" do %>
+        <%= icon('bookmark', class: 'h-4 w-4', style: 'color: #718096') %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <div class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium h-8 w-8 shadow-sm cursor-not-allowed opacity-50" 
+         style="background-color: rgba(255,255,255,0.9);"
+         title="로그인이 필요합니다">
+      <%= icon('bookmark', class: 'h-4 w-4', style: 'color: #718096') %>
+    </div>
+  <% end %>
+<% end %>

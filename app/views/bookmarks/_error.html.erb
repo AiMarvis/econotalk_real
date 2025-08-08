@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "bookmark_#{content.id}", class: "inline-block" do %>
+  <div class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium h-8 w-8 shadow-sm" 
+       style="background-color: rgba(248,113,113,0.9);"
+       title="오류가 발생했습니다">
+    <%= icon('alert-triangle', class: 'h-4 w-4', style: 'color: #FFFFFF') %>
+  </div>
+<% end %>

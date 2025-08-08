@@ -1,0 +1,127 @@
+<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <!-- Main card container -->
+    <div class="bg-white py-8 px-6 shadow-lg rounded-xl border border-gray-100">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-2">
+          Sign in to EconoTalk
+        </h2>
+        <p class="text-sm text-gray-600">
+          Welcome back! Please sign in to continue
+        </p>
+      </div>
+
+      <!-- Social Login Buttons -->
+      <div class="space-y-3 mb-6">
+        <% if devise_mapping.omniauthable? && resource_class.omniauth_providers.include?(:github) %>
+          <%= button_to omniauth_authorize_path(resource_name, :github), 
+                method: :post,
+                data: { turbo: false },
+                class: "w-full flex justify-center items-center gap-3 px-4 py-3 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors" do %>
+            <%= icon('brand-github', class: 'h-5 w-5') %>
+            <span>GitHub</span>
+          <% end %>
+        <% end %>
+
+        <% if devise_mapping.omniauthable? && resource_class.omniauth_providers.include?(:google_oauth2) %>
+          <%= button_to omniauth_authorize_path(resource_name, :google_oauth2), 
+                method: :post,
+                data: { turbo: false },
+                class: "w-full flex justify-center items-center gap-3 px-4 py-3 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors" do %>
+            <%= icon('brand-google', class: 'h-5 w-5') %>
+            <span>Google</span>
+          <% end %>
+        <% end %>
+      </div>
+
+      <!-- Divider -->
+      <div class="relative mb-6">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-gray-300"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <span class="px-2 bg-white text-gray-500">or</span>
+        </div>
+      </div>
+
+      <!-- Login Form -->
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), local: true, class: "space-y-4") do |f| %>
+        <!-- Error Messages -->
+        <% if resource.errors.any? %>
+          <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+            <div class="flex">
+              <%= icon('alert-circle', class: 'h-5 w-5 text-red-400') %>
+              <div class="ml-3">
+                <h3 class="text-sm font-medium text-red-800">
+                  Please fix the following errors:
+                </h3>
+                <ul class="mt-2 text-sm text-red-700 list-disc pl-5">
+                  <% resource.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Email Field -->
+        <div>
+          <%= f.label :email, "Email address or username", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.email_field :email, 
+                autofocus: true,
+                autocomplete: "email",
+                placeholder: "Enter email or username",
+                class: "w-full px-3 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors" %>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <%= f.label :password, class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.password_field :password, 
+                autocomplete: "current-password",
+                placeholder: "Enter your password",
+                class: "w-full px-3 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors" %>
+        </div>
+
+        <!-- Remember Me -->
+        <% if devise_mapping.rememberable? %>
+          <div class="flex items-center">
+            <%= f.check_box :remember_me, class: "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" %>
+            <%= f.label :remember_me, class: "ml-2 block text-sm text-gray-700" %>
+          </div>
+        <% end %>
+
+        <!-- Submit Button -->
+        <div>
+          <%= f.submit "Continue", 
+                class: "w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors" %>
+        </div>
+      <% end %>
+
+      <!-- Footer Links -->
+      <div class="mt-6 text-center">
+        <% if devise_mapping.registerable? %>
+          <p class="text-sm text-gray-600">
+            Don't have an account? 
+            <%= link_to "Sign up", new_registration_path(resource_name), class: "text-indigo-600 hover:text-indigo-500 font-medium" %>
+          </p>
+        <% end %>
+
+        <% if devise_mapping.recoverable? %>
+          <div class="mt-2">
+            <%= link_to "Forgot your password?", new_password_path(resource_name), class: "text-sm text-gray-500 hover:text-gray-700" %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Branding Footer -->
+      <div class="mt-8 text-center">
+        <p class="text-xs text-gray-400">
+          Secured by EconoTalk
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
